@@ -13,20 +13,20 @@ SEO automation for Claude Code and Claude Cowork. Point it at any website -- loc
 /plugin marketplace add cisco801/super-seo
 
 # Install the plugin
-/plugin install local-seo@cisco801-super-seo
+/plugin install super-seo@cisco801-super-seo
 ```
 
 **Scope options:**
 
 ```bash
 # For current project only (committed to git, shared with team):
-/plugin install local-seo@cisco801-super-seo --scope project
+/plugin install super-seo@cisco801-super-seo --scope project
 
 # For all your projects (personal):
-/plugin install local-seo@cisco801-super-seo --scope user
+/plugin install super-seo@cisco801-super-seo --scope user
 
 # For current project, gitignored (local only):
-/plugin install local-seo@cisco801-super-seo --scope local
+/plugin install super-seo@cisco801-super-seo --scope local
 ```
 
 **For development/testing (session-only):**
@@ -40,7 +40,7 @@ claude --plugin-dir ./plugin
 **For individual users:**
 1. Open Claude Cowork at claude.ai/code
 2. Click "+" or type "/" to browse available plugins
-3. Search for "Local SEO"
+3. Search for "Super SEO"
 4. Click Install
 
 **For organization admins:**

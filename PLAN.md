@@ -277,10 +277,10 @@ plugin/
 claude --plugin-dir ./plugin
 
 # Install for current project:
-claude plugin install local-seo@super-seo --scope project
+claude plugin install super-seo@cisco801-super-seo --scope project
 
 # Install for all projects:
-claude plugin install local-seo@super-seo --scope user
+claude plugin install super-seo@cisco801-super-seo --scope user
 ```
 
 **Quick start command:**

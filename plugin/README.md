@@ -9,7 +9,7 @@ Complete local SEO automation for Claude Code and Claude Cowork. Point at any se
 ```bash
 # Add the marketplace and install:
 /plugin marketplace add cisco801/super-seo
-/plugin install local-seo@cisco801-super-seo
+/plugin install super-seo@cisco801-super-seo
 
 # Or for development/testing (session-only):
 claude --plugin-dir ./plugin
@@ -18,7 +18,7 @@ claude --plugin-dir ./plugin
 ### Claude Cowork (Web)
 
 1. Open Claude Cowork at claude.ai/code
-2. Search plugins for "Local SEO"
+2. Search plugins for "Super SEO"
 3. Click Install
 
 **Organization admins:** Add from GitHub repo `cisco801/super-seo` in Settings > Plugins.

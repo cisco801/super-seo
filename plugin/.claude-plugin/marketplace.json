@@ -1,7 +1,7 @@
 {
   "plugins": [
     {
-      "name": "local-seo",
+      "name": "super-seo",
       "path": ".."
     }
   ]

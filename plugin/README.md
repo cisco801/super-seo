@@ -1,19 +1,27 @@
-# Local SEO Plugin for Claude Code
+# Local SEO Plugin
 
-Complete local SEO automation. Point at any service-area business website and get a full optimization pipeline covering Google Business Profile, technical health, website SEO, authority building, content strategy, and monthly reporting.
+Complete local SEO automation for Claude Code and Claude Cowork. Point at any service-area business website and get a full optimization pipeline covering Google Business Profile, technical health, website SEO, authority building, content strategy, and monthly reporting.
 
 ## Installation
 
+### Claude Code (CLI)
+
 ```bash
-# Development / testing (session-only):
-claude --plugin-dir /path/to/super-seo/plugin
+# Add the marketplace and install:
+/plugin marketplace add cisco801/super-seo
+/plugin install local-seo@cisco801-super-seo
 
-# Install for current project:
-claude plugin install local-seo@super-seo --scope project
-
-# Install for all projects:
-claude plugin install local-seo@super-seo --scope user
+# Or for development/testing (session-only):
+claude --plugin-dir ./plugin
 ```
+
+### Claude Cowork (Web)
+
+1. Open Claude Cowork at claude.ai/code
+2. Search plugins for "Local SEO"
+3. Click Install
+
+**Organization admins:** Add from GitHub repo `cisco801/super-seo` in Settings > Plugins.
 
 ## Quick Start
 
@@ -50,4 +58,4 @@ This auto-discovers the business details from the website, sets up context, and 
 
 ## License
 
-Private. Not for redistribution.
+MIT

@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    {
+      "name": "local-seo",
+      "path": ".."
+    }
+  ]
+}

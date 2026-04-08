@@ -1,21 +1,55 @@
 # Super SEO
 
-Local SEO automation system for Claude Code. Point it at any service-area business website and get a complete SEO optimization across Google Business Profile, website, authority, and content -- with a 12-week execution plan.
+Local SEO automation for Claude Code and Claude Cowork. Point it at any service-area business website and get a complete SEO optimization across Google Business Profile, website, authority, and content -- with a 12-week execution plan.
 
-## Quick Start
+## Installation
 
-### 1. Install the Plugin
+### Claude Code (CLI)
+
+**From GitHub (recommended):**
 
 ```bash
-# Development / testing (session-only):
-claude --plugin-dir ./plugin
+# Add the marketplace
+/plugin marketplace add cisco801/super-seo
 
-# Install for current project:
-claude plugin install local-seo@super-seo --scope project
-
-# Install for all projects:
-claude plugin install local-seo@super-seo --scope user
+# Install the plugin
+/plugin install local-seo@cisco801-super-seo
 ```
+
+**Scope options:**
+
+```bash
+# For current project only (committed to git, shared with team):
+/plugin install local-seo@cisco801-super-seo --scope project
+
+# For all your projects (personal):
+/plugin install local-seo@cisco801-super-seo --scope user
+
+# For current project, gitignored (local only):
+/plugin install local-seo@cisco801-super-seo --scope local
+```
+
+**For development/testing (session-only):**
+
+```bash
+claude --plugin-dir ./plugin
+```
+
+### Claude Cowork (Web)
+
+**For individual users:**
+1. Open Claude Cowork at claude.ai/code
+2. Click "+" or type "/" to browse available plugins
+3. Search for "Local SEO"
+4. Click Install
+
+**For organization admins:**
+1. Go to Organization Settings > Plugins
+2. Click "Add from GitHub"
+3. Enter repository: `cisco801/super-seo`
+4. Enable automatic syncing for updates
+
+## Quick Start
 
 ### 2. Point at Any Website
 
@@ -181,4 +215,4 @@ plugin/
 
 ## License
 
-Private. Not for redistribution.
+MIT

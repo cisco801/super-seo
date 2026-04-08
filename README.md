@@ -1,6 +1,6 @@
 # Super SEO
 
-Local SEO automation for Claude Code and Claude Cowork. Point it at any service-area business website and get a complete SEO optimization across Google Business Profile, website, authority, and content -- with a 12-week execution plan.
+SEO automation for Claude Code and Claude Cowork. Point it at any website -- local business, SaaS product, free tool, e-commerce, or content site -- and get a complete SEO optimization tailored to your site type. Auto-detects what kind of site you have and routes to the right audits.
 
 ## Installation
 
@@ -68,7 +68,8 @@ Then asks for what it can't auto-detect (keywords, competitors, biggest SEO prob
 ### 3. Quick Audit or Full Pipeline
 
 ```
-/seo --audit https://acmeplumbing.com   # Quick 3-part audit (technical + GBP + citations)
+/seo --audit https://acmeplumbing.com   # Quick audit tailored to your site type
+/seo --health https://acmeplumbing.com  # Fast 5-point health check
 /seo --full https://acmeplumbing.com    # Start full 12-week pipeline
 ```
 
@@ -81,6 +82,33 @@ Or run individual audits directly:
 /local-seo-authority citation-audit    # NAP consistency across 15+ directories
 /local-seo-authority spam-audit        # Detect fake competitor listings
 /local-seo-content entity-optimization # Schema + Knowledge Graph building
+```
+
+## Site Type Intelligence
+
+The plugin auto-detects your site type and adapts:
+
+| Site Type | How Detected | Audits Run | Audits Skipped |
+|-----------|-------------|-----------|----------------|
+| **Local Service** | GBP listing, LocalBusiness schema, local phone + address | All 24 audit types | None |
+| **SaaS Product** | SoftwareApplication schema, pricing + features pages | Technical, keywords, content, entity, backlinks | GBP, citations, reviews, map pack |
+| **Free Tool** | WebApplication with price "0", single-page tool | Technical, per-variant pages, content gaps | GBP, citations, reviews |
+| **Professional Service** | ProfessionalService schema, consulting/agency | Technical, GBP (if exists), entity, content | Citations (optional) |
+| **E-commerce** | Product schema, shopping cart | Technical, keywords, product schema | GBP, local citations |
+| **Content Site** | Primarily blog/articles | Technical, keywords, content gaps, backlinks | GBP, citations, reviews |
+
+Every site gets a **Universal Quick Health Check** first:
+
+```
+Quick Health Check: Abundera QR
+================================
+Indexation:    0 pages indexed / 1 in sitemap  -- CRITICAL
+Meta Desc:     MISSING                          -- CRITICAL
+Sitemap:       1 URL (should be 20+)            -- CRITICAL
+Canonical:     MISSING                          -- HIGH
+Schema:        WebApplication + FAQPage         -- OK
+
+Overall: 1 of 5 checks passed
 ```
 
 ### 4. Check Progress Anytime

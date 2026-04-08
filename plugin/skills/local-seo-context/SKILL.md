@@ -109,6 +109,23 @@ If a URL or business name is provided, extract as much as possible automatically
 - `hasOfferCatalog` tells us services
 - `address`, `telephone`, `name` are direct extractions
 
+**Step 0d-ii — Detect site type** based on schema @type, page structure, and content:
+- `local_service`: LocalBusiness subtype in schema, or GBP listing found, or physical address + local service areas
+- `saas_product`: SoftwareApplication schema, or pricing page + features page + sign up CTA
+- `free_tool`: WebApplication schema with price "0", or single-page tool with no pricing
+- `ecommerce`: Product schema, shopping cart, product listings
+- `content_site`: Primarily blog/articles, no products or services
+- `professional_service`: ProfessionalService schema, consulting/agency/freelancer
+- `unknown`: Can't determine — ask user
+
+The site type determines which audits are relevant:
+- `local_service`: ALL audits apply (GBP, citations, reviews, map pack, etc.)
+- `saas_product`: Technical, keyword gap, content gap, entity, backlinks. Skip GBP/citations/reviews.
+- `free_tool`: Technical, keyword gap (per-variant pages), content gap. Skip GBP/citations/reviews.
+- `professional_service`: Technical, GBP (if exists), entity, content, backlinks. Citations optional.
+- `content_site`: Technical, keyword gap, content gap, backlinks. Skip GBP/citations.
+- `ecommerce`: Technical, keyword gap, schema (Product), backlinks. Skip GBP reviews.
+
 **Step 0e — WebSearch for GBP listing:** `"{business name}" "{city}" site:google.com/maps`
 - Extract GBP URL, review count, rating, categories
 
@@ -272,7 +289,8 @@ Run any remaining discovery steps not completed in Phase 0:
     "service_areas": ["Henderson", "Las Vegas", "North Las Vegas", "Boulder City"],
     "target_customer": "Homeowners 35-65 in Henderson NV",
     "average_job_value": 450,
-    "schema_type": "Plumber"
+    "schema_type": "Plumber",
+    "site_type": "local_service"
   },
   "seo_goals": {
     "target_keywords": ["plumber henderson nv", "emergency plumber henderson", "water heater repair henderson", "drain cleaning henderson", "plumber near me henderson"],

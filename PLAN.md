@@ -2,7 +2,7 @@
 
 ## Overview
 
-A 6-skill Claude Code system that automates local SEO auditing, optimization, and strategy for service-area businesses. Based on a proven 20-prompt framework refined over 14 years of local SEO management, enhanced with 2026 algorithm updates and AI Overviews optimization.
+A 6-skill Claude Code plugin that automates SEO auditing, optimization, and strategy for ANY website type. Auto-detects site type (local service, SaaS, free tool, e-commerce, content site, professional service) and routes to relevant audits. Based on a proven 20-prompt framework refined over 14 years of local SEO management, enhanced with 2026 algorithm updates, AI Overviews optimization, and universal site-type intelligence.
 
 **Skills:**
 

@@ -60,11 +60,71 @@ Before executing ANY subcommand:
 mkdir -p ./reports ./deliverables/service-pages ./deliverables/schema-markup ./data/gsc-exports
 ```
 
+### Step 3: Quick Health Check (Runs Before Every Subcommand)
+
+Before executing any subcommand, run these 3 fast checks and note results in the report header:
+
+1. **Indexation pulse:** WebSearch `site:{business.website}` — count approximate results
+   - Store as `indexed_count` for use in reports
+   - If 0: prepend WARNING to any report: "This site has ZERO Google indexation. Fix this before optimizing content."
+
+2. **Meta description pulse:** WebFetch homepage, check for `<meta name="description">`
+   - Store as `has_meta_description` (true/false)
+   - If false: note in report header
+
+3. **Sitemap pulse:** WebFetch `{business.website}/sitemap.xml`
+   - Store as `sitemap_url_count`
+   - If missing or 0: note in report header
+   - If exists: compare to `indexed_count` — flag if gap > 50%
+
+These are fast, lightweight checks that add < 30 seconds. They ensure every report includes the site's health baseline.
+
+**Do NOT stop execution** based on these results — just note them prominently in the report. The user may be running audits specifically to diagnose these issues.
+
 ---
 
 ## Subcommand 0: technical-audit (2026 Enhancement — Run First)
 
 **Goal:** Establish a technical health baseline before any content optimization. Core Web Vitals, mobile-friendliness, and page speed are prerequisites — no amount of content optimization helps if the site is technically broken.
+
+### Phase 0: Indexation & Discoverability (Check FIRST)
+
+This is the single most important check. If Google hasn't indexed the site, nothing else matters.
+
+1. **WebSearch** `site:{website}` — count results
+   - **0 results:** CRITICAL — site is invisible to Google
+     - Check: Was the site recently launched? (check whois/registration date via WebSearch)
+     - Check: Is there a `noindex` meta tag on the homepage?
+     - Check: Does robots.txt block Googlebot?
+     - Check: Has the sitemap been submitted to Google Search Console?
+   - **1-10 results but sitemap has 50+:** WARNING — major indexation gap
+     - Possible causes: thin content, duplicate content, no internal linking, crawl budget
+   - **Healthy indexation:** Note count, move on
+
+2. **Sitemap completeness:**
+   - WebFetch `{website}/sitemap.xml` — count URLs
+   - Compare sitemap count to indexed count
+   - If sitemap is missing: CRITICAL
+   - If sitemap has only 1 URL but site clearly has more pages: CRITICAL
+   - If gap between sitemap and indexed is > 50%: WARNING
+
+3. **Meta description coverage:**
+   - WebFetch homepage — check for `<meta name="description">`
+   - WebFetch 2-3 inner pages — check for meta descriptions
+   - If no pages have meta descriptions: CRITICAL
+   - If some do, some don't: WARNING with list
+
+4. **Canonical tag coverage:**
+   - Check homepage for `<link rel="canonical">`
+   - If missing: HIGH — risk of duplicate content
+
+5. **Open Graph tag coverage:**
+   - Check for og:title, og:description, og:image, og:url
+   - If all missing: MEDIUM — hurts social sharing
+
+**Output this section FIRST in the report, before CWV or anything else.** If indexation is at 0, make it the #1 action item regardless of everything else.
+
+**Success criteria:** Indexation status known, sitemap assessed, meta/canonical/OG coverage checked.
 
 ### Phase 1: Page Speed & Core Web Vitals
 
@@ -135,6 +195,12 @@ mkdir -p ./reports ./deliverables/service-pages ./deliverables/schema-markup ./d
 
 **Write** `./reports/00-technical-audit.md` with:
 - Executive Summary (overall technical health grade: A/B/C/D/F)
+- **Indexation & Discoverability** (ALWAYS first section after summary)
+  - Google indexed page count vs sitemap page count
+  - Meta description coverage
+  - Canonical tag coverage
+  - Open Graph coverage
+  - If 0 indexed: giant red flag with step-by-step fix instructions
 - Core Web Vitals assessment (LCP, INP, CLS with targets)
 - Mobile-friendliness checklist (pass/fail for each criterion)
 - Crawlability issues (robots.txt, sitemap, indexation)

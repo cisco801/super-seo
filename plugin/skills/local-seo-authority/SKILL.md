@@ -43,6 +43,17 @@ If `./local-seo-context.json` does not exist or the config file is missing, stop
 
 **Success criteria:** Config loaded, business name, address, phone, website, services, service areas, competitors, and SEO goals all accessible.
 
+### Site Type Gate (citation-audit only)
+
+For the `citation-audit` sub-command, check `business.site_type`:
+- If `local_service`: proceed normally (full NAP consistency audit)
+- If `professional_service`: proceed but note that citations are less critical for this type
+- If `saas_product`, `free_tool`, `content_site`: Stop and suggest alternatives:
+  > "Citation audits check NAP consistency across local directories — this is primarily for local service businesses. For {site_type} sites, try `/local-seo-website keyword-gap` or `/local-seo-content entity-optimization` instead."
+  > Use `--force` to run anyway.
+- `backlink-audit` and `search-intent` work for ALL site types — no gate needed
+- `spam-audit` only applies to `local_service` — gate same as citation-audit
+
 ---
 
 ## Sub-Command: backlink-audit (Prompt 14)

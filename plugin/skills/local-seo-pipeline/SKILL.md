@@ -42,6 +42,63 @@ Parse `$ARGUMENTS` for the subcommand:
 
 ## 12-Week Schedule
 
+## Site Type Routing
+
+Before starting any week, check `business.site_type` from the context JSON. The pipeline adapts its schedule based on the detected site type:
+
+### For `local_service` (default): Run ALL 12 weeks as defined below.
+
+### For `saas_product`:
+Skip weeks focused on local-only audits. Modified schedule:
+- Week 1: Foundation + Technical (same)
+- Week 2: SKIP GBP reviews/posts → run keyword-gap + money-page-audit instead
+- Week 3: SKIP GBP services/description/photos → run service-pages (feature landing pages) instead
+- Week 4: Website keywords (same)
+- Week 5: Feature/comparison page generation (adapt service-pages for SaaS comparison pages)
+- Week 6: GSC analysis + review sentiment (same — review sentiment applies to G2/Capterra reviews)
+- Week 7: Backlink audit (same) + SKIP citation-audit and spam-audit → run entity-optimization instead
+- Week 8: Search intent + content gap (same)
+- Week 9: Entity optimization (same — focus on Product Hunt, G2, Capterra, SaaS directories)
+- Week 10: Competitor content analysis (adapt competitor-posts to competitor content strategy)
+- Week 11: Monthly report (same)
+- Week 12: Re-audit (same)
+
+### For `free_tool`:
+- Week 1: Foundation + Technical (same)
+- Week 2: SKIP GBP → run keyword-gap focused on per-feature landing pages
+- Week 3: SKIP GBP → generate landing pages per tool variant (e.g., /wifi-qr-code, /vcard-qr-code)
+- Week 4-6: Content creation sprint (one landing page per feature/variant)
+- Week 7: Backlink audit + tool directory submissions
+- Week 8: Search intent + content gap (same)
+- Week 9: Entity optimization (schema per page, tool directories)
+- Week 10: Competitor analysis (what pages do competitors have that we don't?)
+- Week 11: Monthly report (same)
+- Week 12: Re-audit (same)
+
+### For `professional_service`:
+Run the standard 12-week schedule but:
+- Week 2-3: Run GBP audits only if a GBP listing exists. If not, skip to keyword/content audits.
+- Week 7: Run backlink audit and entity optimization. Skip citation-audit unless business serves local area.
+- All other weeks: same
+
+### For `content_site`:
+- Week 1: Technical audit (same)
+- Week 2-6: SKIP all GBP → focus entirely on keyword gap, content gap, and page optimization
+- Week 7-8: Backlink audit + search intent (same)
+- Week 9-10: Entity optimization + competitor analysis (same)
+- Week 11-12: Report + re-audit (same)
+
+### For `ecommerce` or `unknown`:
+Run technical audit first, then ask the user which audit areas are most relevant.
+
+**The pipeline status display should show which weeks are SKIPPED vs ACTIVE based on site type:**
+```
+Week | Phase        | Status       | Notes
+-----|-------------|-------------|--------
+  2  | Reviews     | ⊘ Skipped   | Not applicable for saas_product
+  3  | GBP Final   | ⊘ Skipped   | Not applicable for saas_product
+```
+
 ### Week 1: Foundation + Technical Baseline
 
 **Skills:**
@@ -290,6 +347,7 @@ If user cannot provide GSC data, offer to run a WebSearch-based fallback analysi
   "pipeline": {
     "started": "YYYY-MM-DD",
     "current_week": 1,
+    "site_type": "{business.site_type}",
     "completed_prompts": [],
     "schedule": {
       "week_01": { "status": "in_progress", "started_at": "YYYY-MM-DD", "completed_at": null, "skills_run": [], "notes": "" },
@@ -334,6 +392,7 @@ Output a formatted progress table:
 Super SEO Pipeline Status: [Business Name]
 ==========================================
 Started: YYYY-MM-DD | Current Week: N of 12
+Site Type: {site_type} | Routing: {standard/modified}
 
 Week | Phase        | Status      | Completed  | Skills
 -----|-------------|-------------|------------|--------

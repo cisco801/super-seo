@@ -38,6 +38,18 @@ Parse `$ARGUMENTS` for:
 3. If either file is missing or the slug is empty, stop and tell the user: "No business context found. Run `/local-seo-context setup` first."
 4. Create `./reports/` and `./deliverables/` directories if they do not exist
 
+### Site Type Gate
+
+After loading business context, check `business.site_type`:
+- If `local_service` or `professional_service`: proceed with all GBP audits
+- If `saas_product`, `free_tool`, `ecommerce`, or `content_site`: Stop and tell the user:
+  > "GBP optimization is designed for local service businesses. Your site ({site_type}) would benefit more from `/local-seo-website technical-audit` and `/local-seo-content entity-optimization` instead."
+  > 
+  > If you DO have a Google Business Profile listing and want to optimize it anyway, run: `/local-seo-gbp category-audit --force`
+- If `unknown`: Ask the user if they have a Google Business Profile listing. If yes, proceed. If no, suggest alternatives.
+
+**Override:** If the user passes `--force` after any sub-command name, skip the site type gate and run the audit anyway.
+
 **Success criteria:** Business context loaded with at minimum: business name, city, top 3 target keywords, 3+ competitor names, list of services offered.
 
 ---

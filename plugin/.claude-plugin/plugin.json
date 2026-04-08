@@ -1,0 +1,19 @@
+{
+  "name": "local-seo",
+  "version": "1.0.0",
+  "description": "Complete local SEO automation — 6 skills, 24 audit types, 12-week pipeline. Point at any service-area business website and get full GBP optimization, technical audits, location page generation, citation fixing, entity building, and monthly reporting.",
+  "author": {
+    "name": "Cisco Caceres"
+  },
+  "repository": "https://github.com/cisco801/super-seo",
+  "license": "UNLICENSED",
+  "keywords": [
+    "seo",
+    "local-seo",
+    "google-business-profile",
+    "gbp",
+    "citations",
+    "schema",
+    "local-search"
+  ]
+}

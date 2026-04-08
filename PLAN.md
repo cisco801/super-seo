@@ -9,9 +9,9 @@ A 6-skill Claude Code system that automates local SEO auditing, optimization, an
 | Skill | Prompts | Purpose |
 |-------|---------|---------|
 | `local-seo-context` | — | Business profile loader + progress tracker |
-| `local-seo-gbp` | 1-8 | Google Business Profile optimization |
-| `local-seo-website` | 9-13 | Website SEO + page generation |
-| `local-seo-authority` | 14-16 | Backlinks, citations, search intent |
+| `local-seo-gbp` | 1-8 | GBP optimization + Video/Social strategy |
+| `local-seo-website` | 9-13 | Technical health + Website SEO + page generation |
+| `local-seo-authority` | 14-16 | Backlinks, citations, spam fighting, search intent |
 | `local-seo-content` | 17-20 | Content strategy, entity, reporting |
 | `local-seo-pipeline` | All | 12-week master orchestrator |
 
@@ -161,11 +161,14 @@ The active project pointer lives at `./local-seo-context.json`:
 └── deliverables/
     ├── review-response-templates.md
     ├── gbp-posts-calendar.md
+    ├── gbp-video-scripts.md         # Scripts for short-form video updates
     ├── gbp-description-drafts.md
     ├── photo-shot-list.md
     ├── keyword-map.md
     ├── backlink-targets.md
+    ├── local-sponsorship-leads.md  # Community engagement targets
     ├── citation-tracker.md
+    ├── spam-report-log.md           # Tracking reported fake competitors
     ├── intent-map.md
     ├── content-calendar.md
     ├── outreach-emails.md
@@ -187,6 +190,9 @@ These are integrated into the relevant skills based on March 2026 algorithm upda
 | **GBP completeness scoring** | gbp | Google now explicitly uses profile completeness as ranking input |
 | **Citation freshness monitoring** | authority | Google tracks when citations are updated; quarterly updates show measurable benefit |
 | **Review recency + response rate** | gbp | March 2026 core update weights these more heavily than raw review counts |
+| **Video & Social Proof** | gbp | GBP short-form video updates (behind-the-scenes, video testimonials) are now primary ranking signals |
+| **Information Gain / Local Utility** | website, content | Unique local data (permit guides, local pricing calculators) prevents "cookie-cutter" penalties |
+| **Zero-Party Data / Direct Booking** | gbp, pipeline | Integration with "Reserve with Google" and direct messaging is a high-weight ranking factor |
 | **Voice search readiness** | website, content | 50%+ local searches via voice; FAQ schema + conversational content |
 | **Cookie-cutter page detection** | website | Google filtering templated location pages more aggressively |
 | **Specific LocalBusiness schema subtypes** | content | Use `Plumber`, `Dentist`, etc. — never generic `LocalBusiness` |
@@ -198,18 +204,31 @@ These are integrated into the relevant skills based on March 2026 algorithm upda
 
 | Week | Phase | Skills/Prompts | Focus | Expected Outcome |
 |------|-------|---------------|-------|-----------------|
-| 1 | Foundation | Context + GBP 1-2 | Profile setup, category + attribute audit | GBP categories fixed, missing attributes identified |
-| 2 | GBP | GBP 3-5 | Reviews analysis, response strategy, posts calendar | Review velocity target set, 8-week posts calendar built |
-| 3 | GBP | GBP 6-8 | Services, description, photos | Full GBP optimization complete |
+| 1 | Foundation | Context + Website | Technical audit, Mobile/CWV check, Category audit | Technical baseline established, GBP categories fixed |
+| 2 | GBP | GBP 3-5 | Reviews analysis, response strategy, Video strategy | Review velocity target set, Video/Post calendar built |
+| 3 | GBP | GBP 6-8 | Services, description, photos, Direct Booking | Full GBP optimization complete, booking integrated |
 | 4 | Website | Website 9-10 | Keyword gap + money page audit | Priority keyword list, page optimization sprint plan |
-| 5 | Website | Website 11 | Service + city page generation | All missing location pages generated |
-| 6 | Website | Website 12-13 | GSC deep dive + review sentiment | Page 2 goldmine found, customer language mapped |
-| 7 | Authority | Authority 14-15 | Backlinks + citations | 90-day link building plan, citation fixes queued |
+| 5 | Website | Website 11 | Service + city page generation (Unique local utility) | High-utility location pages generated |
+| 6 | Website | Website 12-13 | GSC deep dive + internal link silos | Page 2 goldmine found, internal link structure fixed |
+| 7 | Authority | Authority 14-15 | Backlinks, citations, Spam reporting | Citation fixes queued, competitor spam reported |
 | 8 | Authority + Content | Authority 16 + Content 17 | Search intent + content gaps | Buyer journey mapped, content briefs written |
-| 9 | Content | Content 18 | Entity / schema optimization | JSON-LD markup ready, knowledge graph signals built |
-| 10 | Content | Content 19 | Competitor GBP post forensics | Posting strategy built from competitor data |
+| 9 | Content | Content 18 | Entity / schema optimization (Specific subtypes) | JSON-LD markup ready, knowledge graph signals built |
+| 10 | Content | Content 19 | Competitor posts + Information Gain strategy | Posting strategy built, unique local assets planned |
 | 11 | Reporting | Content 20 | First monthly report | Baseline metrics captured |
 | 12 | Re-audit | All key audits | Re-run categories, citations, GSC | Progress measured, next quarter planned |
+
+## Operational Resilience & Ethics
+
+### Logging & Backups
+- **Audit Trail:** All skill executions log to `./logs/{skill}-{date}.log`.
+- **Config Backups:** Every update to `~/.claude/config/local-seo/{slug}.json` triggers a timestamped backup in `./backups/config/`.
+- **State Recovery:** The `local-seo-pipeline` can resume from the last successful week by reading the `progress` object in the context JSON.
+
+### Ethical (White-Hat) SEO
+- **No Review Gating:** System will not implement "review gating" (filtering negative reviews before they hit GBP), which violates Google TOS.
+- **Natural Link Building:** Focus on local relevance and real-world relationships, avoiding PBNs or link farms.
+- **AI Disclosure:** All AI-generated content is reviewed for E-E-A-T signals and human-in-the-loop validation to ensure local accuracy.
+- **Spam Reporting:** Only report objectively fake profiles (e.g., keyword-stuffed names, residential addresses used as storefronts) to maintain ecosystem integrity.
 
 ## Tool Adaptations
 
@@ -231,6 +250,47 @@ The original system assumes browser automation ("Open Chrome and go to..."). Our
 | `ping-search-engines.py` | local-seo-website | IndexNow notifications after page deployment |
 | `cloudflare.py` | local-seo-website | Deploy to CF Pages if applicable |
 | `cf-sites.json` | local-seo-context | Check if business website is a known CF Pages site |
+
+## Plugin Architecture
+
+The system is packaged as a Claude Code plugin at `./plugin/`:
+
+```
+plugin/
+  .claude-plugin/
+    plugin.json               # Plugin metadata (name, version, description, keywords)
+  commands/
+    seo.md                    # /seo quick-start command -- point at any website
+  skills/
+    local-seo-context/        # -> symlink to ~/projects/claude-code/skills/
+    local-seo-gbp/
+    local-seo-website/
+    local-seo-authority/
+    local-seo-content/
+    local-seo-pipeline/
+  README.md                   # Plugin-specific docs
+```
+
+**Installation:**
+```bash
+# Development/testing (session-only):
+claude --plugin-dir ./plugin
+
+# Install for current project:
+claude plugin install local-seo@super-seo --scope project
+
+# Install for all projects:
+claude plugin install local-seo@super-seo --scope user
+```
+
+**Quick start command:**
+```
+/seo https://any-business-website.com          # Auto-discover and setup
+/seo --audit https://any-business-website.com  # Quick 3-part audit
+/seo --full https://any-business-website.com   # Start full 12-week pipeline
+```
+
+The `/seo` command auto-discovers business details from the website (name, address, phone, services, areas, GBP URL, schema type) via WebSearch + WebFetch, then offers quick audit or full pipeline.
 
 ## Source
 

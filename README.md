@@ -4,7 +4,7 @@ SEO automation for Claude Code and Claude Cowork. Point it at any website -- loc
 
 ## Installation
 
-### Claude Code CLI (Terminal)
+### Claude Code CLI (Terminal) -- Full Plugin Support
 
 ```bash
 # Add the marketplace
@@ -24,15 +24,23 @@ SEO automation for Claude Code and Claude Cowork. Point it at any website -- loc
 
 ### Claude Code Desktop App (Mac/Windows)
 
-Two options:
+The Desktop app does **not** support `/plugin` commands yet ([tracking issue](https://github.com/anthropics/claude-code/issues/42142)). Use the `--plugin-dir` flag when launching instead:
 
-**Option A — GUI:** Click the `+` button next to the prompt box > "Add plugin" > add marketplace `cisco801/super-seo` > install `super-seo`
+```bash
+# From terminal, launch Desktop with the plugin loaded:
+claude --plugin-dir /path/to/super-seo/plugin
+```
 
-**Option B — Terminal:** Same commands as CLI above — type them in the Desktop app's terminal.
+Or clone the repo and point to it:
+
+```bash
+git clone https://github.com/cisco801/super-seo.git
+claude --plugin-dir ./super-seo/plugin
+```
 
 ### Claude Code Web App (claude.ai/code)
 
-Same commands as CLI — type them in the web terminal.
+Same `/plugin` commands as CLI — type them directly in the web terminal.
 
 ### Claude Cowork
 
@@ -44,15 +52,7 @@ Cowork uses a separate plugin system. Custom GitHub plugins require organization
 3. Enter the private repo path
 4. Enable automatic syncing
 
-**For individual Cowork users:** Custom plugins from GitHub are not available without org admin setup. Ask your admin to add the repo, or use Claude Code CLI/Desktop/Web instead.
-
-### Quick Test (No Install)
-
-```bash
-# Clone and run directly (session-only, no permanent install):
-git clone https://github.com/cisco801/super-seo.git
-claude --plugin-dir ./super-seo/plugin
-```
+**For individual Cowork users:** Custom plugins from GitHub are not available without org admin setup. Ask your admin to add the repo, or use Claude Code CLI or Web instead.
 
 ## Quick Start
 

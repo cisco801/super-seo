@@ -4,24 +4,21 @@ Complete local SEO automation for Claude Code and Claude Cowork. Point at any se
 
 ## Installation
 
-### Claude Code (CLI)
+### Claude Code (CLI, Desktop, Web)
 
 ```bash
 # Add the marketplace and install:
 /plugin marketplace add cisco801/super-seo
 /plugin install super-seo@cisco801-super-seo
-
-# Or for development/testing (session-only):
-claude --plugin-dir ./plugin
 ```
 
-### Claude Cowork (Web)
+Works in Claude Code CLI, Desktop app (Mac/Windows), and web app (claude.ai/code).
 
-1. Open Claude Cowork at claude.ai/code
-2. Search plugins for "Super SEO"
-3. Click Install
+**Quick test (no install):** `claude --plugin-dir ./plugin`
 
-**Organization admins:** Add from GitHub repo `cisco801/super-seo` in Settings > Plugins.
+### Claude Cowork
+
+Cowork requires org admin setup with a private repo fork. See the main [README](../README.md) for details.
 
 ## Quick Start
 

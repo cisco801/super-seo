@@ -199,6 +199,12 @@ Write a full JSON-LD `LocalBusiness` schema using the SPECIFIC subtype from cont
 
 Populate every field possible from context data. For fields not in context (hours, geo coordinates, social profiles), add placeholder comments noting what the business needs to provide.
 
+**Platform-specific placement instructions (always include in report):**
+- **Shopify (Online Store 2.0):** Create snippets via Themes > Edit Code > Snippets. Render from `layout/theme.liquid` before `</head>` using conditionals (`{% if template contains 'product' %}`, `{% if page.handle == 'faqs' %}`, etc.). Never reference `product.liquid` or `page.liquid` — those are legacy. The templates are JSON files in 2.0; markup lives in `sections/main-product.liquid`.
+- **WordPress:** Use a plugin like Rank Math or Yoast, or add to `header.php` in the theme, or use `wp_head` action hook.
+- **Static sites / Cloudflare Pages:** Add directly to the HTML `<head>` of each page.
+- **Custom frameworks (Next.js, Nuxt, etc.):** Add to the page component's `<Head>` or equivalent metadata API.
+
 **Success criteria:** Complete JSON-LD schema generated with all available context data populated.
 
 ### Phase 5 - Entity Strengthening Plan

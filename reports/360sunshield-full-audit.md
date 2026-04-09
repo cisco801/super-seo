@@ -167,7 +167,23 @@ Shopify's `canonical_url` variable automatically handles pagination, collection 
 
 #### ISSUE: Missing Product JSON-LD on product page (HIGH)
 
-**Where to add:** Create a new snippet in Shopify: Online Store > Themes > Edit Code > Snippets > Add new snippet > name it `product-schema.liquid`. Then include it in `product.liquid` template with `{% render 'product-schema' %}`.
+**Where to add (Shopify Online Store 2.0):**
+
+1. Go to **Online Store > Themes > (...) > Edit Code**
+2. In the left sidebar, open **Layout > `theme.liquid`**
+3. Find the closing `</head>` tag
+4. Paste this JSON-LD script **directly above** `</head>`, wrapped in a product template check:
+
+```liquid
+{% if template contains 'product' %}
+{% render 'product-schema' %}
+{% endif %}
+```
+
+5. Then create the snippet: In the left sidebar, click **Snippets > Add a new snippet** > name it `product-schema`
+6. Paste the complete schema below into that snippet and save
+
+**Why `theme.liquid` and not `product.liquid`:** Shopify 2.0 uses `templates/product.json` (a JSON config file, not Liquid). The actual markup lives in `sections/main-product.liquid`, but schema belongs in `<head>`, which is only in `theme.liquid`. The `{% if template contains 'product' %}` conditional ensures it only renders on product pages.
 
 **Complete Product schema (`snippets/product-schema.liquid`):**
 ```html
@@ -225,13 +241,21 @@ Shopify's `canonical_url` variable automatically handles pagination, collection 
 
 #### ISSUE: No FAQ schema on FAQs page (HIGH)
 
-**Where to add:** Create a new snippet: `snippets/faq-schema.liquid`. Include it in your FAQs page template with `{% render 'faq-schema' %}`. If the FAQs page uses a custom template, add it there. If it uses the default `page.liquid`, you can conditionally render it:
+**Where to add (Shopify 2.0):**
 
-```html
+1. Go to **Online Store > Themes > Edit Code**
+2. Click **Snippets > Add a new snippet** > name it `faq-schema`
+3. Paste the JSON-LD below into the snippet and save
+4. Open **Layout > `theme.liquid`**, find the closing `</head>` tag
+5. Add this conditional render **above** `</head>` (right next to the product-schema render if you already added that):
+
+```liquid
 {% if page.handle == 'faqs' %}
   {% render 'faq-schema' %}
 {% endif %}
 ```
+
+This only fires on the FAQs page (`/pages/faqs`). The `page.handle` matches the page URL slug in Shopify.
 
 **Complete FAQPage schema (`snippets/faq-schema.liquid`):**
 ```html
@@ -305,7 +329,21 @@ Shopify's `canonical_url` variable automatically handles pagination, collection 
 
 #### ISSUE: No Article schema on 47 blog posts (HIGH)
 
-**Where to add:** Create a new snippet: `snippets/article-schema.liquid`. Then add `{% render 'article-schema' %}` to your `article.liquid` template (usually in `sections/` or `templates/`).
+**Where to add (Shopify 2.0):**
+
+1. Go to **Online Store > Themes > Edit Code**
+2. Click **Snippets > Add a new snippet** > name it `article-schema`
+3. Paste the dynamic Liquid template below into the snippet and save
+4. Open **Layout > `theme.liquid`**, find the closing `</head>` tag
+5. Add this conditional render **above** `</head>`:
+
+```liquid
+{% if template contains 'article' %}
+  {% render 'article-schema' %}
+{% endif %}
+```
+
+This automatically renders on every blog post. The Liquid variables (`article.title`, `article.published_at`, etc.) are populated by Shopify for each post — you don't need to edit anything per article. One snippet covers all 47 posts.
 
 **Dynamic Article schema template (`snippets/article-schema.liquid`):**
 ```html
@@ -1317,7 +1355,7 @@ subscription: https://360sunshield.com/products/360-sun-shield
 
 #### ACTION 4: Add trust badges to product page
 
-**Where to add:** In your product template (usually `sections/product-template.liquid` or `sections/main-product.liquid`), add this HTML below the "Add to Cart" button:
+**Where to add (Shopify 2.0):** Go to Online Store > Themes > Edit Code > open `sections/main-product.liquid` (the section that renders your product page). Find the "Add to Cart" button block and paste this HTML below it. If your theme uses a different section name, search for `AddToCart` or `product-form` in the sections folder.
 
 ```html
 <div class="trust-badges" style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; padding: 15px; border-top: 1px solid #eee;">
@@ -1429,7 +1467,7 @@ Here's what they told us.</p>
 
 | # | Action | Impact | Effort | Timeline | Implementation |
 |---|--------|--------|--------|----------|----------------|
-| 1 | **Add Product schema** to product page | HIGH | Low | 1 day | See Section 2: complete JSON-LD ready to paste into `snippets/product-schema.liquid` |
+| 1 | **Add Product schema** to product page | HIGH | Low | 1 day | See Section 2: create snippet `product-schema` via Themes > Edit Code > Snippets, render from `theme.liquid` |
 | 2 | **Write meta descriptions** for homepage, product, science, all 47 blogs | HIGH | Medium | 1 week | See Section 2: all 7 key page descriptions written; blog posts need individual descriptions |
 | 3 | **Add customer reviews** to product page (install review app) | HIGH | Low | 1 week | See Section 8: Judge.me setup steps + customer email template |
 | 4 | **Create Amazon listing** | VERY HIGH | Medium | 2 weeks | See Section 6 Month 1: step-by-step Amazon Seller Central instructions |

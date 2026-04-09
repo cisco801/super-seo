@@ -7,6 +7,8 @@ argument-hint: "[website URL or business name] [--audit] [--full] [--health]"
 
 Point at any website and start optimizing. Auto-detects site type and routes to the right audits.
 
+**Core principle: Reports are implementation documents, not recommendations.** Every action item includes the exact code, copy, content, or email to implement — ready to paste. Never say "add a meta description" without writing the actual meta description. Never say "add Product schema" without writing the complete JSON-LD. Never say "pitch to bloggers" without writing the actual pitch email. The user should be able to implement every recommendation by copying and pasting from the report.
+
 ## Invocation
 
 ```

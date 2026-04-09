@@ -15,6 +15,8 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch, Agent
 
 4 sub-commands covering prompts 17-20 of the local SEO system: content gap analysis, entity optimization, competitor post intelligence, and monthly performance reporting.
 
+**Reports are implementation documents, not recommendations documents.** Every action item includes the exact code, copy, or content to implement — ready to paste.
+
 ## Argument Parsing
 
 Parse `$ARGUMENTS` for:
@@ -408,10 +410,23 @@ Every report file must include these sections:
 2. **Data Gathered** - What was found, sources used, data quality notes
 3. **Analysis** - Comparison tables, gaps identified, quantitative findings
 4. **2026 Enhancements** - What is new or different for 2026 algorithm updates
-5. **Action Items** - Prioritized list, each with:
+5. **Action Items** — Prioritized list. **Every single action item MUST include the exact fix, not instructions to fix.** This is the #1 quality rule for all reports.
    - Impact rating: HIGH / MEDIUM / LOW
-   - Estimated time to see results (days/weeks/months)
-   - Effort level: Quick Win / Moderate / Significant
+   - Estimated time to implement
+   - Estimated time to see results
+   - **THE EXACT FIX** — ready to copy-paste. Examples of what "exact fix" means:
+     - Schema markup → write the complete JSON-LD code block
+     - Meta description → write the exact 150-160 char description
+     - Title tag → write the exact new title tag
+     - Review response → write the full template text
+     - Outreach email → write the complete subject + body
+     - Blog post → write a detailed outline with H1, H2s, key points, word count, CTA
+     - Configuration change → exact setting name, value, and where to find it
+     - Internal link → exact anchor text, source page URL, target page URL
+   - Never say "add a meta description" — write the meta description
+   - Never say "add Product schema" — write the complete JSON-LD
+   - Never say "pitch to bloggers" — write the actual pitch email
+   - The user should be able to implement every action item without thinking — just paste
 6. **Next Steps** - Which prompt to run next in the sequence
 
 ---

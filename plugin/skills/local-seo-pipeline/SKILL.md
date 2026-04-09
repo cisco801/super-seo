@@ -15,6 +15,8 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch, Agent
 
 Master orchestrator that sequences all 5 local-seo skills (`local-seo-context`, `local-seo-gbp`, `local-seo-website`, `local-seo-authority`, `local-seo-content`) across a 12-week execution plan.
 
+**Reports are implementation documents, not recommendations documents.** Every action item includes the exact code, copy, or content to implement — ready to paste.
+
 ## Argument Parsing
 
 Parse `$ARGUMENTS` for the subcommand:
@@ -484,8 +486,14 @@ Key Findings:
   3. [Third finding]
 
 Immediate Actions (do this week):
-  1. [Action with HIGH impact — be specific]
-  2. [Action with HIGH impact — be specific]
+  **Every action item MUST include the exact fix, not instructions to fix.** This is the #1 quality rule.
+  1. [Action with HIGH impact — include THE EXACT FIX, ready to copy-paste]
+  2. [Action with HIGH impact — include THE EXACT FIX, ready to copy-paste]
+  Examples of "exact fix": complete JSON-LD code, exact meta description text, exact title tag,
+  full outreach email subject+body, complete review response template, exact config values.
+  Never say "add a meta description" — write the meta description.
+  Never say "add Product schema" — write the complete JSON-LD.
+  The user should be able to implement every action item without thinking — just paste.
 
 Next Week Preview:
   Week [N+1]: [Phase Name]

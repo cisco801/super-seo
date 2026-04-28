@@ -28,3 +28,7 @@ data/gsc-exports/*.csv
 # Temp files
 *.tmp
 *.bak
+
+# Local SEO active context (per-machine)
+local-seo-context.json
+.claude/

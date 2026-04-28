@@ -1,131 +1,331 @@
-# Technical SEO Audit: RoamingPigs Inc
+# Technical SEO Audit: Abundera QR
 
-**Date:** 2026-04-08
+**Date:** 2026-04-09
 
-**Website:** https://roamingpigs.com
+**Website:** https://qr.abundera.ai
 
-**Overall Grade: B+**
+**Site Type:** Free web tool (QR code generator) — SPA/PWA on Cloudflare Pages
+
+**Overall Technical Grade: B+** (up from D+ on April 8)
+
+---
 
 ## Executive Summary
 
-RoamingPigs.com is technically well-built with clean HTML, proper schema markup, HTTPS, a valid sitemap (169 URLs), and minimal external dependencies. The site scores well on privacy and performance by running zero analytics, zero tracking, and zero third-party scripts. Key gaps: no meta descriptions on pages, no canonical tags detected, missing image alt attributes, and no Google Business Profile listing. The biggest SEO opportunity is creating a GBP listing and adding meta descriptions across all 169 pages.
+In 48 hours since the initial audit, qr.abundera.ai has made massive structural improvements: sitemap expanded from 1 URL to 1,021 URLs, 20 dedicated landing pages created with unique content, meta descriptions added, OG tags added, hreflang for 21 languages implemented. The technical foundation is now strong (8.5/10). The critical gap is **zero visibility** — 0 pages indexed, 0 backlinks, 0 brand mentions anywhere on the web. The site needs to be discovered.
 
-## Data Gathered
+---
 
-- **Source:** WebFetch of homepage, robots.txt, sitemap.xml
-- **Indexed pages (Google):** ~8 visible in site: search (Google may have more indexed but not displayed)
-- **Sitemap pages:** 169 URLs with lastmod dates (ranging from Jan 2024 to Apr 2026)
-- **Schema markup:** ProfessionalService JSON-LD present on homepage
+## Current State vs. April 8 Audit
 
-## Core Web Vitals Assessment
+| Metric | April 8 | April 9 | Change |
+|--------|---------|---------|--------|
+| Sitemap URLs | 1 | 1,021 | +1,020 |
+| Landing pages | 0 | 20 (EN) + 400 (translated) | +420 |
+| Languages | 1 | 21 | +20 |
+| Meta description | Missing | Present on all pages | Fixed |
+| OG tags | Missing | Complete set | Fixed |
+| Twitter cards | Missing | Complete set | Fixed |
+| Canonical tag | Missing | Present (minor issue) | Fixed |
+| Hreflang | Missing | 21-language set per page | Fixed |
+| Schema markup | 2 types | 2 types per page (unique) | Improved |
+| Google indexed | 0 | 0 | No change |
+| Backlinks | 0 | 0 | No change |
+| Brand mentions | 0 | 0 | No change |
 
-| Metric | Target | Estimated Status | Notes |
-|--------|--------|-----------------|-------|
-| **LCP** (Largest Contentful Paint) | < 2.5s | LIKELY PASS | No large hero images, minimal JS, static site |
-| **INP** (Interaction to Next Paint) | < 200ms | LIKELY PASS | Minimal interactive elements, no heavy frameworks |
-| **CLS** (Cumulative Layout Shift) | < 0.1 | NEEDS CHECK | Images may not have explicit width/height attributes |
+---
 
-**Note:** Exact CWV scores require PageSpeed Insights testing. The static site architecture with zero third-party scripts suggests strong performance.
+## Technical Scorecard
 
-## Mobile-Friendliness
+| Category | Score | Notes |
+|----------|-------|-------|
+| Title Tags | 9/10 | Unique per page, keyword-rich, good length |
+| Meta Descriptions | 9/10 | Unique, action-oriented, within limits |
+| Canonical Tags | 8/10 | Present but homepage missing trailing slash |
+| Hreflang | 10/10 | Complete 21-language implementation |
+| Schema Markup | 7/10 | WebApp + FAQ good; missing BreadcrumbList, HowTo |
+| Heading Structure | 9/10 | Clean H1 per page, topical H2s |
+| Internal Linking | 9/10 | All 20 types cross-linked from every page |
+| OG/Twitter Cards | 8/10 | Complete but shared image; article tags misused |
+| Performance | 7/10 | Font preload good; no preconnect hints |
+| Content Uniqueness | 8/10 | Each page has unique content, FAQs, use cases |
+| robots.txt/Sitemap | 9/10 | Clean config, comprehensive sitemap |
+| PWA/Mobile | 10/10 | Full PWA, manifest, service worker, RTL |
+| **Overall** | **8.5/10** | |
 
-| Check | Status | Notes |
-|-------|--------|-------|
-| Viewport meta tag | NEEDS VERIFICATION | Not visible in WebFetch extraction |
-| Responsive design | LIKELY PASS | Dark mode toggle, responsive nav detected |
-| Touch targets | LIKELY PASS | Navigation appears touch-friendly |
-| Font readability | LIKELY PASS | Clean typography observed |
-| Horizontal scrolling | LIKELY PASS | No wide fixed-width elements detected |
+---
 
-## Crawlability & Indexation
+## Issues Found
 
-| Check | Status | Notes |
-|-------|--------|-------|
-| robots.txt | PASS | `Allow: /`, Crawl-delay: 1, Sitemap referenced |
-| sitemap.xml | PASS | 169 URLs, all with lastmod dates, priorities set |
-| HTTPS | PASS | All URLs use HTTPS consistently |
-| Indexed pages | CONCERN | Only ~8 shown in `site:` search vs 169 in sitemap |
-| Canonical tags | NOT FOUND | No canonical URL tags detected |
-| Meta descriptions | NOT FOUND | No meta description on homepage |
+### CRITICAL — Fix Immediately
 
-## Security & Trust
+#### 1. Homepage Canonical Missing Trailing Slash
 
-| Check | Status | Notes |
-|-------|--------|-------|
-| HTTPS certificate | PASS | Valid, served via Cloudflare |
-| Mixed content | PASS | No HTTP resources on HTTPS pages |
-| Third-party scripts | EXCELLENT | Zero external scripts, zero tracking |
-| Privacy policy | PASS | /privacy.html exists and is in sitemap |
-| Business address | PASS | Full address in footer and JSON-LD |
-| Contact method | PARTIAL | Email only (contact@roamingpigs.com), no phone |
+**Problem:** Homepage canonical is `https://qr.abundera.ai` but all subpages use trailing slash. Hreflang self-reference IS `https://qr.abundera.ai/`. This splits link equity.
 
-## Structured Data (Schema.org)
+**Fix:**
+```html
+<!-- Change from: -->
+<link rel="canonical" href="https://qr.abundera.ai">
+<!-- Change to: -->
+<link rel="canonical" href="https://qr.abundera.ai/">
+```
 
-| Check | Status | Notes |
-|-------|--------|-------|
-| JSON-LD present | PASS | ProfessionalService type on homepage |
-| @type specificity | PASS | Uses `ProfessionalService` (specific subtype) |
-| Business name | PASS | "RoamingPigs Inc" |
-| Address | PASS | Full PostalAddress with geo coordinates |
-| Services listed | PASS | 6 services in schema |
-| Founder | PASS | Cisco Caceres |
-| Area served | PASS | Worldwide |
-| Logo | PASS | URL provided |
+#### 2. Zero Indexation
 
-## 2026 Enhancements
+**Problem:** Google has indexed 0 pages. The site is invisible.
 
-- **AI Overviews:** The site's articles are fact-dense and well-structured -- good candidates for AI Overview citations. Adding FAQ schema to key articles would improve AI citation probability.
-- **Voice search:** No FAQ schema detected. Adding structured Q&A to service pages would capture voice queries like "What is a fractional CTO?"
-- **Entity building:** The schema markup is solid. To strengthen the knowledge graph entity, create/verify profiles on LinkedIn Company Page, Crunchbase, and industry directories.
+**Fix — Google Search Console:**
+1. Go to https://search.google.com/search-console
+2. Add property `https://qr.abundera.ai`
+3. Verify via DNS TXT record (Cloudflare DNS):
+   ```
+   google-site-verification=XXXXX
+   ```
+4. Submit sitemap: `https://qr.abundera.ai/sitemap.xml`
+5. Request indexing of homepage via URL Inspection tool
 
-## Action Items
+**Fix — Bing Webmaster Tools:**
+1. Go to https://www.bing.com/webmasters
+2. Import from GSC or verify separately
+3. Submit sitemap
 
-### CRITICAL (Fix This Week)
+**Fix — Ping search engines:**
+```bash
+~/.claude/scripts/ping-search-engines.py --site qr.abundera.ai --sitemap https://qr.abundera.ai/sitemap.xml
+```
 
-1. **Add meta descriptions to ALL pages** -- Currently none detected. Each of the 169 pages needs a unique meta description (150-160 chars). Start with the homepage and top 10 articles.
-   - Impact: HIGH | Time to results: 2-4 weeks after indexing
+#### 3. Zero Backlinks / Zero Brand Presence
 
-2. **Add canonical tags** -- Every page should have `<link rel="canonical" href="...">` to prevent duplicate content issues (especially pagination pages).
-   - Impact: HIGH | Time to results: 2-4 weeks
+**Problem:** No website links to qr.abundera.ai. The Abundera brand has zero web presence — not on Product Hunt, Reddit, Hacker News, G2, or any directory.
 
-3. **Create Google Business Profile listing** -- No GBP listing found. For a Las Vegas consulting firm, a GBP listing enables map pack visibility for "fractional CTO Las Vegas", "tech consulting Las Vegas", etc.
-   - Impact: HIGH | Time to results: 1-2 weeks for initial visibility
+**Fix — Immediate submissions (this week):**
 
-### HIGH (Fix This Month)
+| Directory | URL | Priority |
+|-----------|-----|----------|
+| Product Hunt | producthunt.com/posts/new | HIGH |
+| Hacker News (Show HN) | news.ycombinator.com/submit | HIGH |
+| AlternativeTo | alternativeto.net/manage/ | HIGH |
+| G2 | sell.g2.com | MEDIUM |
+| SaaSHub | saashub.com/submit | MEDIUM |
+| ToolPilot.ai | toolpilot.ai | MEDIUM |
+| There's An AI For That | theresanaiforthat.com/submit/ | MEDIUM |
+| Dev Hunt | devhunt.org | MEDIUM |
 
-4. **Add image alt attributes** -- Images missing alt text hurts accessibility and image search rankings. Add descriptive alt text to all images including the logo, author photo, and any article images.
-   - Impact: MEDIUM | Time to results: 2-4 weeks
+### HIGH — Fix This Week
 
-5. **Investigate indexation gap** -- 169 pages in sitemap but only ~8 showing in `site:` search. Possible causes: pages too new, thin content on some pages, or crawl budget issues.
-   - Action: Submit sitemap in Google Search Console, check Coverage report
-   - Impact: HIGH | Time to results: 2-8 weeks
+#### 4. WebApplication Schema Description Duplicated
 
-6. **Add phone number** -- No phone number on the site. Even if consulting is primarily online, a phone number builds trust and enables click-to-call from GBP/mobile.
-   - Impact: MEDIUM | Time to results: immediate trust signal
+**Problem:** Every landing page's WebApplication JSON-LD uses the same generic description. Should match each page's specific topic.
 
-### MEDIUM (Fix Next Month)
+**Fix for /wifi-qr-code/:**
+```json
+{
+  "@type": "WebApplication",
+  "name": "Abundera QR — WiFi QR Code Generator",
+  "description": "Create free WiFi QR codes. Guests scan to connect — no typing passwords. WPA/WPA2/WEP, hidden networks. Download printable WiFi cards.",
+  "url": "https://qr.abundera.ai/wifi-qr-code/"
+}
+```
 
-7. **Add FAQ schema to service pages** -- Structured Q&A data helps with voice search and featured snippets. Target: "What does a fractional CTO do?", "How much does technical due diligence cost?", "What is an AI reality check?"
-   - Impact: MEDIUM | Time to results: 4-8 weeks
+Apply same pattern to all 20 landing pages — use each page's meta description as the schema description.
 
-8. **Verify viewport meta tag** -- Likely present but couldn't confirm via WebFetch. Verify in page source.
-   - Impact: LOW (probably already there) | Time: 5 minutes
+#### 5. Add BreadcrumbList Schema
 
-9. **Add explicit image dimensions** -- Set width/height on all `<img>` tags to prevent CLS.
-   - Impact: LOW-MEDIUM | Time to results: immediate CLS improvement
+**Fix — Add to every landing page:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Abundera QR",
+      "item": "https://qr.abundera.ai/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "WiFi QR Code Generator",
+      "item": "https://qr.abundera.ai/wifi-qr-code/"
+    }
+  ]
+}
+```
 
-## Keyword Opportunity Snapshot
+#### 6. Add HowTo Schema
 
-| Keyword | RoamingPigs Ranking | Competitors Found | Opportunity |
-|---------|-------------------|-------------------|-------------|
-| fractional CTO Las Vegas | NOT RANKING | 3+ competitors | HIGH -- no local competition with real content |
-| technical due diligence consulting | NOT RANKING | 10+ national firms | MEDIUM -- national competition but unique angle |
-| AI reality check consulting | NOT RANKING | None (unique service) | HIGH -- own this term |
-| technology consulting Las Vegas | NOT RANKING | Several | MEDIUM -- competitive |
+**Fix — Example for /wifi-qr-code/:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Create a WiFi QR Code",
+  "description": "Create a free WiFi QR code that lets guests connect to your network by scanning.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Choose WiFi type",
+      "text": "Select 'WiFi' from the QR code type dropdown."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Enter network details",
+      "text": "Enter your network name (SSID), password, and security type (WPA/WPA2/WEP)."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Customize style",
+      "text": "Choose colors, dot style, and optionally add your logo."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Download",
+      "text": "Export as PNG, SVG, or PDF. Print or share digitally."
+    }
+  ],
+  "tool": {
+    "@type": "HowToTool",
+    "name": "Abundera QR Code Generator"
+  }
+}
+```
 
-## Next Steps
+#### 7. Add Organization Schema to Homepage
 
-1. Fix CRITICAL items (meta descriptions, canonicals, GBP listing)
-2. Run `/local-seo-gbp category-audit` if GBP listing is created
-3. Run `/local-seo-website keyword-gap` for full keyword analysis
-4. Run `/local-seo-content entity-optimization` for Knowledge Graph building
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Abundera, Inc.",
+  "url": "https://abundera.ai",
+  "logo": "https://abundera.ai/logo.png",
+  "sameAs": [
+    "https://www.linkedin.com/company/abundera"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Cisco Caceres",
+    "url": "https://www.linkedin.com/in/ciscocaceres"
+  }
+}
+```
+
+### MEDIUM — Fix Within 2 Weeks
+
+#### 8. Remove Misused Article OG Tags from Homepage
+
+```html
+<!-- REMOVE these from homepage: -->
+<meta property="article:author" content="...">
+<meta property="article:published_time" content="...">
+<meta property="article:modified_time" content="...">
+```
+
+#### 9. Create Page-Specific OG Images
+
+All 21 pages share `og-image.png`. Create unique 1200x630 images for at least WiFi, vCard, UPI, URL, Batch.
+
+#### 10. Add Twitter Username Tags
+
+```html
+<meta name="twitter:site" content="@abundera">
+<meta name="twitter:creator" content="@ciscocaceres">
+```
+
+#### 11. Expand FAQ Schema to 10+ Q&As Per Page
+
+Homepage has 5 Q&As, landing pages have 3. Competitors have 23-27.
+
+---
+
+## Competitive Landscape
+
+### SERP Positions by Keyword
+
+| Keyword | Volume | #1 Rank | Abundera | Difficulty |
+|---------|--------|---------|----------|------------|
+| free QR code generator | VERY HIGH | qr-code-generator.com | Not indexed | VERY HIGH |
+| wifi QR code generator | HIGH | qr-code-generator.com | Not indexed | MEDIUM |
+| vcard QR code generator | MEDIUM | Pageloot | Not indexed | MEDIUM |
+| UPI QR code generator | HIGH (India) | Paytm | Not indexed | **LOW** |
+| batch QR code generator | MEDIUM | QRCodeRW | Not indexed | **LOW** |
+| QR code generator no signup | MEDIUM | QRStuff | Not indexed | MEDIUM |
+| bitcoin QR code generator | MEDIUM | — | Not indexed | **LOW** |
+| SEPA QR code generator | MEDIUM (EU) | — | Not indexed | **LOW** |
+
+### Competitor Page Counts
+
+| Competitor | Total Pages | Landing Pages | Blog Posts | Languages |
+|-----------|------------|---------------|-----------|-----------|
+| QR Code Generator (Bitly) | 400+ | 95+ | 234 | 27 |
+| QRCodeChimp | 100+ | 40+ | 50+ | 5+ |
+| QRCode Monkey | 14 | 0 | 0 | 10 |
+| **Abundera QR** | **1,021** | **20** | **0** | **21** |
+
+### Listicle Presence
+
+Abundera QR appears in **zero** "best QR code generator" articles.
+
+| Listicle Publisher | Opportunity |
+|-------------------|-------------|
+| QRCodeChimp (10 Free QR Code Generators) | Outreach |
+| Guideflow (Best QR Code Generators 2026) | Outreach |
+| ColorWhistle (Free QR Code Generators) | Outreach |
+| Jotform (6 Best Free QR Code Generators) | Outreach |
+| ShortPen (7 Best QR Code Generator Platforms) | Outreach |
+
+---
+
+## Wide-Open Keyword Niches
+
+Low competition keywords where none of the top 3 competitors rank:
+
+1. **UPI QR code generator** — Massive India market, only payment processors rank
+2. **Batch QR code generator** — Niche tools only, Abundera's CSV feature is competitive
+3. **Bitcoin/crypto QR code generator** — Few quality tools
+4. **SEPA QR code generator** — European payment niche
+5. **Micro QR code generator** — Abundera is one of very few
+6. **rMQR code generator** — Almost zero competition
+7. **Privacy QR code generator / no tracking** — Strong differentiator
+
+---
+
+## Launch / Visibility Plan
+
+### Product Hunt Launch Draft
+
+- **Tagline:** "The most feature-rich free QR code generator — 20 types, batch CSV, zero tracking"
+- **Description:** "Abundera QR generates 20 QR code types including WiFi, vCard, UPI, SEPA, PayPal, and crypto — all 100% client-side with zero tracking. Batch CSV generation, custom logos, gradient colors, 8 dot styles, colorblind preview. Free forever, no signup, no watermarks."
+- **Categories:** Developer Tools, Design Tools, Privacy
+
+### Show HN Draft
+
+Title: `Show HN: Abundera QR – Free QR code generator with 20 types, batch CSV, zero tracking`
+
+```
+I built a privacy-first QR code generator that runs 100% client-side.
+No server, no tracking, no signup.
+
+Features: 20 QR types (WiFi, vCard, UPI, SEPA, crypto, etc.),
+batch CSV generation, custom logos, gradient colors, 8 dot styles,
+colorblind preview, Micro QR + rMQR support.
+
+Tech: Pure JavaScript, Cloudflare Pages, PWA with offline support.
+Available in 21 languages.
+
+https://qr.abundera.ai
+```
+
+### Reddit Target Subreddits
+
+- r/InternetIsBeautiful — "Free privacy-first QR code generator with 20 types"
+- r/webdev — "Show r/webdev: Built a client-side QR generator with batch CSV"
+- r/privacy — "QR code generator that runs 100% in your browser"
+- r/india — "Free UPI QR code generator — works with GPay, PhonePe, Paytm, BHIM"
+- r/SideProject — "Launched a free QR code generator with 20 types and zero tracking"

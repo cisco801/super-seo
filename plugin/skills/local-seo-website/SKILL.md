@@ -89,6 +89,35 @@ These are fast, lightweight checks that add < 30 seconds. They ensure every repo
 
 **Goal:** Establish a technical health baseline before any content optimization. Core Web Vitals, mobile-friendliness, and page speed are prerequisites — no amount of content optimization helps if the site is technically broken.
 
+### Phase -1: siteops pre-flight (only if the site is locally managed)
+
+If the site lives under `~/projects/claude-code/config/cf-sites.json` (Cisco's CF Pages fleet), call the local audits first — they already know the site's zone settings, AI-discoverability posture, and SEO-file inventory authoritatively. This replaces most of Phase 0 and Phase 2 with ground-truth data instead of HTTP probing.
+
+```bash
+# Quick check: is this a locally-managed site?
+python3 -c "import json; d=json.load(open('$HOME/projects/claude-code/config/cf-sites.json')); print('YES' if '{domain}' in d.get('sites', {}) else 'NO')"
+```
+
+If **YES**, run all three and merge into the audit report:
+
+```bash
+~/projects/siteops/scripts/cf-security-audit.py --zone {domain} --json
+~/projects/siteops/scripts/ai-index-audit.py --zone {domain} --json
+~/.claude/scripts/seo-audit.py --domain {domain} --json
+```
+
+Each audit returns a structured report. Surface the `fail`/`warn` findings in the technical-audit report under these headings:
+
+- **Zone security** (from cf-security-audit) — SSL mode, Min TLS, HSTS, Always-HTTPS, AI-bot policy, security.txt
+- **AI discoverability** (from ai-index-audit) — robots.txt AI-bot allowlist, sitemap.xml, llms.txt, llms-full.txt, JSON-LD, Managed Robots.txt
+- **SEO files** (from seo-audit) — robots.txt/_headers/sitemap/favicon/og-image/manifest/IndexNow key
+
+If any audit reports `fail`, include the `fix_hint` verbatim in the action items. These are the *authoritative* action items — no need to re-discover them via WebFetch.
+
+For fleet-wide diagnosis, drop `--zone DOMAIN` from any of the above to audit all sites at once.
+
+If **NO** (external or unmanaged site), skip this phase and run the manual probing in Phase 0 + Phase 2 as normal.
+
 ### Phase 0: Indexation & Discoverability (Check FIRST)
 
 This is the single most important check. If Google hasn't indexed the site, nothing else matters.
